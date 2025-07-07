@@ -1,70 +1,40 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link, NavLink } from 'react-router-dom';
 import './App.css';
 
-const CrudApp = () => {
-  const initialData = [
-    { id: 1, name: 'latesh', email: 'latesh@example.com', address: 'ca 21 jamuna ' },
-    { id: 2, name: 'sam', email: 'sam@example.com', address: 'ca 31 virar' },
-  ];
+// Page Components
+const Home = () => (
+  <div className="page-content">
+    <h2>Home Page</h2>
+    <p>Welcome to the CRUD application.</p>
+  </div>
+);
 
-  const [data, setData] = useState(initialData);
-  const [formData, setFormData] = useState({ 
-    id: null, 
-    name: '', 
-    email: '', 
-    address: '' 
-  });
-  const [isEditing, setIsEditing] = useState(false);
+const About = () => (
+  <div className="page-content">
+    <h2>About</h2>
+    <p>This is a React CRUD application.</p>
+  </div>
+);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const Contact = () => (
+  <div className="page-content">
+    <h2>Contact</h2>
+    <p>Email us at contact@example.com</p>
+  </div>
+);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isEditing) {
-      setData(data.map(item => item.id === formData.id ? formData : item));
-      setIsEditing(false);
-    } else {
-      const newItem = {
-        ...formData,
-        id: data.length > 0 ? Math.max(...data.map(item => item.id)) + 1 : 1
-      };
-      setData([...data, newItem]);
-    }
-    setFormData({ id: null, name: '', email: '', address: '' });
-  };
-
-  const handleEdit = (item) => {
-    setFormData(item);
-    setIsEditing(true);
-  };
-
-  const handleDelete = (id) => {
-    setData(data.filter(item => item.id !== id));
-    if (isEditing && formData.id === id) {
-      setFormData({ id: null, name: '', email: '', address: '' });
-      setIsEditing(false);
-    }
-  };
-
+const CrudInterface = ({ 
+  data, 
+  formData, 
+  isEditing, 
+  handleInputChange, 
+  handleSubmit, 
+  handleEdit, 
+  handleDelete 
+}) => {
   return (
-    <div className="app-container">
-      {/* Navigation */}
-      <nav className="navbar">
-        <h1>ReactCrudApp</h1>
-        <div className="nav-links">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <a href="#" className="active">New Item</a>
-        </div>
-      </nav>
-
-      <div className="divider"></div>
-
-      {/* Form Section */}
+    <>
       <div className="form-container">
         <h2 className="form-title">{isEditing ? 'Edit Item' : 'Add New Item'}</h2>
         <form onSubmit={handleSubmit}>
@@ -125,7 +95,6 @@ const CrudApp = () => {
         </form>
       </div>
 
-      {/* Data Table */}
       <h2 className="table-title">Items List</h2>
       {data.length === 0 ? (
         <p className="empty-state">No items found</p>
@@ -164,8 +133,95 @@ const CrudApp = () => {
           </tbody>
         </table>
       )}
+    </>
+  );
+};
+
+const App = () => {
+  const initialData = [
+    { id: 1, name: 'latesh', email: 'latesh@example.com', address: 'ca 21 jamuna' },
+    { id: 2, name: 'sam', email: 'sam@example.com', address: 'ca 31 virar' },
+  ];
+
+  const [data, setData] = useState(initialData);
+  const [formData, setFormData] = useState({ 
+    id: null, 
+    name: '', 
+    email: '', 
+    address: '' 
+  });
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isEditing) {
+      setData(data.map(item => item.id === formData.id ? formData : item));
+      setIsEditing(false);
+    } else {
+      const newItem = {
+        ...formData,
+        id: data.length > 0 ? Math.max(...data.map(item => item.id)) + 1 : 1
+      };
+      setData([...data, newItem]);
+    }
+    setFormData({ id: null, name: '', email: '', address: '' });
+  };
+
+  const handleEdit = (item) => {
+    setFormData(item);
+    setIsEditing(true);
+  };
+
+  const handleDelete = (id) => {
+    setData(data.filter(item => item.id !== id));
+    if (isEditing && formData.id === id) {
+      setFormData({ id: null, name: '', email: '', address: '' });
+      setIsEditing(false);
+    }
+  };
+
+  return (
+    <div className="app-container">
+      {/* Navigation */}
+      <nav className="navbar">
+        <h1>ReactCrudApp</h1>
+        <div className="nav-links">
+          <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>About</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact</NavLink>
+          <NavLink to="/new" className={({ isActive }) => isActive ? 'nav-button active' : 'nav-button'}>New Item</NavLink>
+        </div>
+      </nav>
+
+      <div className="divider"></div>
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route 
+          path="/new" 
+          element={
+            <CrudInterface 
+              data={data}
+              formData={formData}
+              isEditing={isEditing}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          } 
+        />
+      </Routes>
     </div>
   );
 };
 
-export default CrudApp;
+export default App;
