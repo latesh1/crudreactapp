@@ -1,0 +1,270 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f5fde8;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #182b08;
+  background-color: #f5fde8;
+}
+
+/* App container */
+.app-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Form styles */
+.form-container {
+  background: #f5fde8;
+  padding: 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px #182b08;
+  margin-bottom: 2rem;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #477516;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #182b08;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: none;
+}
+
+.primary-button {
+  background-color: #7ac022;
+  color: #182b08;
+}
+
+.primary-button:hover {
+  background-color: #68a61d;
+}
+
+.secondary-button {
+  background-color: #e74c3c;
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.secondary-button:hover {
+  background-color: #c0392b;
+}
+
+/* Table styles */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f5fde8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #d1e8b2;
+}
+
+.data-table th {
+  background-color: #7ac022;
+  color: #182b08;
+  font-weight: 600;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover {
+  background-color: #e8f5d6;
+}
+
+.action-button {
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #7ac022;
+  color: #182b08;
+}
+
+.delete-button {
+  background-color: #7ac022;
+  color: #182b08;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px #7ac022(0, 0, 0, 0.1);
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* Tablet View (768px and below) */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0 1.5rem;
+    margin: 1.5rem auto;
+  }
+
+  .form-container {
+    padding: 1.25rem;
+  }
+
+  .form-title {
+    font-size: 1.1rem;
+  }
+
+  .button {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    padding: 0.4rem 0.6rem;
+    margin-right: 0.3rem;
+  }
+}
+
+/* Mobile View (576px and below) */
+@media (max-width: 576px) {
+  .app-container {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+
+  .form-container {
+    padding: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .secondary-button {
+    margin-left: 0;
+  }
+
+  /* Transform table into card layout */
+  .data-table {
+    display: block;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: #d3f3a3;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+  }
+
+  .data-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid #e0e8d0;
+  }
+
+  .data-table td:before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: #477516;
+    margin-right: 1rem;
+  }
+
+  .data-table td:last-child {
+    border-bottom: none;
+    justify-content: flex-end;
+  }
+
+  .action-button {
+    margin-bottom: 0.3rem;
+  }
+}
+
+/* Small Mobile View (400px and below) */
+@media (max-width: 400px) {
+  .form-input {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .data-table td {
+    font-size: 0.85rem;
+    flex-direction: column;
+  }
+
+  .data-table td:before {
+    margin-bottom: 0.25rem;
+  }
+
+  .action-button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
